@@ -1,0 +1,5 @@
+CruiseResume/alive.txt
+CruiseResume/helper.log
+CruiseResume/helper_stdout.log
+CruiseResume/q/*.cmd
+__pycache__/
