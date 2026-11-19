@@ -15,12 +15,12 @@
 - Direct throttle writes (overwritten each frame).
 - Enhanced Input injection: the game uses its own `MTInputKeyMapping`, no `Driving_*` InputAction objects exist.
 - Hooks on `Actor:ReceiveTick` / `UserWidget:Tick` never fire.
-- `R` as Resume key conflicts with the game's roadside-service menu → F7.
+- `R` as Resume key conflicts with the game's roadside-service menu → F6.
 
 ## Final design
 
 1. `tick()` (every 150 ms): while cruise is on, store the HUD target as `saved` (fallback: stable speed). Reset on vehicle change.
-2. `F7` while cruise is off: send tap `5`, then run closed-loop **rounds**: read HUD target `T`, `diff = saved - T`, queue `min(|diff|, 15)` taps of `pgup`/`pgdn`, wait `n*90 + 350` ms, repeat until `diff == 0` (max 25 rounds).
+2. `F6` while cruise is off: send tap `5`, then run closed-loop **rounds**: read HUD target `T`, `diff = saved - T`, queue `min(|diff|, 15)` taps of `pgup`/`pgdn`, wait `n*90 + 350` ms, repeat until `diff == 0` (max 25 rounds).
 3. Taps are delivered via files `q\<unix time>_<seq>.cmd` containing `tap <name>`.
 4. `helper/keyhelper.ps1` polls `q\` every 20 ms, drops commands older than 6 s, and only sends a key (scancode `SendInput`) if the foreground window belongs to `MotorTown-Win64-Shipping`. It writes a heartbeat `alive.txt` every 2 s (the mod considers it alive if ≤ 6 s old), uses mutex `Global\CruiseResumeKeyHelper`, logs to `helper.log`, and exits 20 s after the game closes (or after 15 min if the game never started).
 5. The mod autostarts the helper through `os.execute('start "" /B powershell ...')`.

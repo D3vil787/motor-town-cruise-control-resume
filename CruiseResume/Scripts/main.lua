@@ -1,13 +1,13 @@
--- CruiseResume v0.5 (прототип) - Resume для штатного круиз-контроля Motor Town.
+-- CruiseResume v0.6 (прототип) - Resume для штатного круиз-контроля Motor Town.
 --
 -- Как работает:
 --   * мод следит за табло круиза и запоминает скорость, на которой круиз был включён;
---   * по F7 (если круиз выключен): включает штатный круиз (клавиша 5) и жмёт Page Up / Page Down,
+--   * по F6 (если круиз выключен): включает штатный круиз (клавиша 5) и жмёт Page Up / Page Down,
 --     пока скорость круиза не станет равна запомненной;
 --   * клавиши "нажимает" маленький помощник keyhelper.ps1 (обычный ввод Windows), и только
 --     когда активно окно игры. Данные игры мод не меняет.
 --
--- Клавиши мода:  F7 = Resume,  F9 = вкл/выкл мод (на время чата!),  F6 = подробный лог,  F8 = статус
+-- Клавиши мода:  F6 = Resume,  F9 = вкл/выкл мод (на время чата!),  F5 = подробный лог,  F8 = статус
 
 local UEHelpers = require("UEHelpers")
 
@@ -15,9 +15,9 @@ local UEHelpers = require("UEHelpers")
 -- НАСТРОЙКИ
 ---------------------------------------------------------------------------
 local CFG = {
-    RESUME_KEY       = Key.F7,
+    RESUME_KEY       = Key.F6,
     DISABLE_KEY      = Key.F9,
-    DEBUG_KEY        = Key.F6,
+    DEBUG_KEY        = Key.F5,
     STATUS_KEY       = Key.F8,
 
     -- клавиши игры (как у тебя назначены) - имена см. в keyhelper.ps1
@@ -265,7 +265,7 @@ local function resume()
 
     if not helperAlive() then
         startHelper()
-        log("помощник не запущен - запускаю, повтори F7 через пару секунд")
+        log("помощник не запущен - запускаю, повтори F6 через пару секунд")
         return
     end
 
@@ -334,7 +334,7 @@ end)
 
 RegisterKeyBind(CFG.DISABLE_KEY, function()
     enabled = not enabled
-    log("мод " .. (enabled and "ВКЛЮЧЁН" or "ВЫКЛЮЧЕН (F7 не трогает клавиши)"))
+    log("мод " .. (enabled and "ВКЛЮЧЁН" or "ВЫКЛЮЧЕН (F6 не трогает клавиши)"))
 end)
 
 RegisterKeyBind(CFG.DEBUG_KEY, function()
@@ -367,4 +367,4 @@ LoopAsync(CFG.POLL_MS, function()
 end)
 
 startHelper()
-log("v0.5 загружен. F7=Resume, F9=вкл/выкл, F6=подробный лог, F8=статус. modDir=" .. modDir)
+log("v0.6 загружен. F6=Resume, F9=вкл/выкл, F5=подробный лог, F8=статус. modDir=" .. modDir)

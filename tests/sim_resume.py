@@ -93,7 +93,7 @@ setg('on', True); setg('target', 100); setg('speed', 100.0)
 run(1500); dump("круиз включён на 100")
 setg('on', False); setg('speed', 47.0)
 run(500); dump("круиз снят")
-press('F7'); run(6000); dump("RESUME нажата")
+press('F6'); run(6000); dump("RESUME нажата")
 print("taps:", [lua.eval('G.taps')[i] for i in range(1, len(lua.eval('G.taps'))+1)])
 print("итог: on=", getg('on'), "target=", getg('target'))
 assert getg('on') and getg('target') == 100, "scenario 1 failed"
@@ -105,7 +105,7 @@ setg('on', True); setg('target', 60); setg('speed', 60.0)
 run(1500); dump("на круизе 60")
 setg('on', False); setg('speed', 85.0)
 run(500); dump("снят")
-press('F7'); run(8000); dump("F7")
+press('F6'); run(8000); dump("F6")
 t = lua.eval('G.taps'); taps=[t[i] for i in range(1,len(t)+1)]
 print("нажатий всего:", len(taps), "первые:", taps[:3], "итог: on=", getg('on'), "target=", getg('target'))
 assert getg('on') and getg('target') == 60, "scenario 2 failed"
